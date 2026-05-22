@@ -1,4 +1,7 @@
 from collections import defaultdict
+import matplotlib.pyplot as plt
+import networkx as nx
+
 class Graph:
     def __init__(self):
         self.graph = defaultdict(list)
@@ -7,11 +10,10 @@ class Graph:
         self.graph[u].append(v)
 
     def BFS(self, u):
-        visited = [False] * (len(self.graph))
-
+        visited = set()
         queue = []
 
-        visited[u-1] = True
+        visited.add(u)
         queue.append(u)
 
         while queue:
@@ -19,9 +21,29 @@ class Graph:
             print(u, end=' ')
 
             for i in self.graph[u]:
-                if not visited[i-1]:
+                if i not in visited:
                     queue.append(i)
-                    visited[i-1] = True
+                    visited.add(i)
+        print()
+
+    def drawGraph(self):
+        G = nx.Graph()
+
+        for node in self.graph:
+            for neighbor in self.graph[node]:
+                G.add_edge(node, neighbor)
+
+        plt.figure(figsize=(8, 6))
+        
+        pos = nx.spring_layout(G, seed=42) 
+
+        nx.draw_networkx_nodes(G, pos, node_size=700, node_color='lightgreen', edgecolors='black')
+        nx.draw_networkx_edges(G, pos, width=2, edge_color='gray')
+        nx.draw_networkx_labels(G, pos, font_size=14, font_weight='bold', font_family='sans-serif')
+
+        plt.axis('off')
+        plt.tight_layout()
+        plt.show()
 
 if __name__ == '__main__':
     g = Graph()
@@ -42,5 +64,8 @@ if __name__ == '__main__':
     g.addEdge(5, 4)
     g.addEdge(4, 5)
 
-    print("BFS - duyệt tìm kiếm chiều rộng bắt đầu từ đỉnh 0")
+    print("BFS - duyệt tìm kiếm chiều rộng bắt đầu từ đỉnh 0:")
     g.BFS(0)
+
+    print("\nĐang mở cửa sổ hiển thị đồ thị...")
+    g.drawGraph()

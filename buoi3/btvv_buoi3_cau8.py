@@ -4,11 +4,16 @@ def fl_k(a, k):
         for i in range(n-1):
             if a[i] > a[i+1]:
                 a[i], a[i+1] = a[i+1], a[i]
-    if j == k - 1:
-        return True
-    return False
+                
+    is_sorted = True
+    for j in range(n-1):
+        if a[j] > a[j+1]:
+            is_sorted = False
+            break
+            
+    return is_sorted
 
 a = [3, 2, 1]
-k = 2
+k = 1
 result = fl_k(a, k)
 print(result)

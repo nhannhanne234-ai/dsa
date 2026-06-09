@@ -14,6 +14,6 @@ def fl_k(a, k):
     return is_sorted
 
 a = [3, 2, 1]
-k = 1
+k = 2
 result = fl_k(a, k)
 print(result)

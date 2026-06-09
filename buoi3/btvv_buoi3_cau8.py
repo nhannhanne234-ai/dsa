@@ -10,7 +10,6 @@ def fl_k(a, k):
         if a[j] > a[j+1]:
             is_sorted = False
             break
-            
     return is_sorted
 
 a = [3, 2, 1]
